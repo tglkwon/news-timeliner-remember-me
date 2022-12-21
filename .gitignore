@@ -1,0 +1,8 @@
+node_modules
+package-lock.json
+config.json
+
+*.db
+*.model
+*.pickle
+*.npy
