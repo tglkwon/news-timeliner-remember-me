@@ -5,6 +5,11 @@ from konlpy.tag import Okt, Kkma, Komoran, Hannanum, Mecab
 # import sentencepiece as spm
 import gensim
 import sqlite3
+import sys
+
+if len(sys.argv) < 2:
+    print('no argv. this file needs "query: str"')
+query = sys.argv[2]
 
 okt = Okt()
 kkma = Kkma()
@@ -25,6 +30,7 @@ cur.execute('SELECT id, title, dateNews, category FROM news;')
 articles = cur.fetchall()
 articles = pd.DataFrame(articles)
 articles.columns = ['id', 'title', 'dateNews', 'category']
+articles.dateNews = articles.dateNews.apply(lambda x: str(x)[:6])
 
 path_stopwords = path + 'stopwords.pickle'
 with open(path_stopwords, 'rb') as f:
